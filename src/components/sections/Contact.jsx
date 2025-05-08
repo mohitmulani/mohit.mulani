@@ -9,9 +9,9 @@ export const Contact = () => {
     message: "",
   });
 
-  const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
-  const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
-  const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
+  const PUBLIC_KEY = "XCfZDtXj34-jbYpdR";
+  const SERVICE_ID = "service_hglfb0r";
+  const TEMPLATE_ID = "template_xrkzrh9";
 
   const formRef = useRef();
 
