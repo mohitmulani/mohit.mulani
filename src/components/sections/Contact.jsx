@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { RevealOnScroll } from "../RevealOnScroll";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,16 +9,22 @@ export const Contact = () => {
     message: "",
   });
 
+  const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
+  const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
+  const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
+
+  const formRef = useRef();
+
+  useEffect(() => {
+    emailjs.init(PUBLIC_KEY);
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
     emailjs
-      .sendForm(
-        import.meta.env.VITE_SERVICE_ID,
-        import.meta.env.VITE_TEMPLATE_ID,
-        e.target,
-        import.meta.env.VITE_PUBLIC_KEY
-      )
-      .then((result) => {
+      .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
+      .then(() => {
         alert("Message Sent!");
         setFormData({ name: "", email: "", message: "" });
       })
@@ -35,7 +41,7 @@ export const Contact = () => {
           <h2 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-500 to-cyan-400 text-center bg-clip-text text-transparent">
             Get In Touch
           </h2>
-          <form action="" className="space-y-6" onSubmit={handleSubmit}>
+          <form ref={formRef} className="space-y-6" onSubmit={handleSubmit}>
             <div className="relative">
               <input
                 type="text"
