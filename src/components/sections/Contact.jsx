@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { RevealOnScroll } from "../RevealOnScroll";
-import emailjs from "@emailjs/browser";
+import emailjs from "@emailjs-com";
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
